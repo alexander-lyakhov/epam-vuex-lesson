@@ -24,7 +24,7 @@
 
 		computed: {
 			users() {
-				return this.$store.state.users.userList;
+				return this.$store.state.userList;
 			},
 		},
 
