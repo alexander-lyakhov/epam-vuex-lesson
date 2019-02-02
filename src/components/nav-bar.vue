@@ -27,10 +27,13 @@
 			addUser(e) {
 				const el = this.$refs.userName;
 
-				this.$store.commit('addUser', el.value)
+				if (el.value.trim() !== '') {
 
-				el.value = '';
-				el.focus();
+					this.$store.commit('addUser', el.value)
+
+					el.value = '';
+					el.focus();
+				}
 			}
 		}
 	}
@@ -45,7 +48,7 @@
 		left: 0;
 		top: 0;
 		z-index: 1;
-		
+
 		.nav-header {
 			background: $vue-green;
 			max-width: $page-width;
@@ -53,7 +56,7 @@
 			display: flex;
 			align-items: center;
 			margin: auto;
-			
+
 			.text-input {
 				background: $vue-green-minus-10;
 				border-radius: 4px;
@@ -63,7 +66,7 @@
 				height: 40px;
 				margin: 0 12px;
 				padding: 4px 8px;
-				
+
 				input[type="text"] {
 					font-family: $font-primary, sans-serif;
 					font-size: 22px;
@@ -75,7 +78,7 @@
 					height: 32px;
 					line-height: 32px;
 				}
-				
+
 				.btn-add {
 					color: $vue-dark;
 					&:hover {
@@ -91,17 +94,17 @@
 				align-items: center;
 				padding: 0 8px;
 				cursor: pointer;
-				
+
 				.name {
 					font-size: 16px;
 					text-shadow: 1px 1px $vue-dark;
 					padding: 0 8px;
 				}
-				
+
 				.avatar {
 					border-radius: 50%;
 				}
-			}	
+			}
 		}
 	}
 </style>
