@@ -1,50 +1,44 @@
-import Vue from "vue";
-import Vuex from "vuex";
+﻿import Vue from 'vue'
+import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-	strict: process.env.NODE_ENV !== 'production',
+import avatar from '@/assets/avatar.jpg'
 
+export default new Vuex.Store({
 	state: {
 		accountName: 'Alexander',
-		accountAvatar: 'https://bit.ly/2S11Lkn',
-		userList: [],
+		accountAvatar: avatar,
+		users: []
 	},
 
 	getters: {
-		account(state) {
-			return {
-				name: state.accountName,
-				avatar: state.accountAvatar
-			}
-		},
-
 		userCount(state) {
-			return state.userList.length;
-		},
+			return state.users.length;
+		}
 	},
-	
+
 	mutations: {
-		addUser(state, name) {
+
+		ADD_USER(state, name) {
 			const id = Math.floor(Math.random() * new Date().getTime()).toString(16);
-			state.userList = [{id, name}, ...state.userList];
+			state.users = [{id, name}, ...state.users];
 		},
 
-		removeUser(state, id) {
-			this.state.userList = this.state.userList.filter(item => item.id !== id);
+		POPULATE_USERS(state, data) {
+			state.users = [...data, ...state.users];
 		},
 
-		populateUserList(state, data) {
-			state.userList = [...data, ...state.userList];
+		REMOVE_USER(state, id) {
+			this.state.users = this.state.users.filter(item => item.id !== id);
 		}
 	},
 
 	actions: {
-		fetchUsers({commit}) {
+		LOAD_USERS({commit}) {
 			return fetch('https://jsonplaceholder.typicode.com/users')
 				.then(res => res.json())
-				.then(users => commit('populateUserList', users))
+				.then(users => commit('POPULATE_USERS', users))
 		}
 	}
-});
+})
