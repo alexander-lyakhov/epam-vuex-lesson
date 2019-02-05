@@ -1,10 +1,10 @@
 <template>
 	<div id="app">
 		<nav-bar></nav-bar>
-		<main>	
+		<main>
 			<section>
 				<a class="load-users" href="#" @click.prevent="loadUsers">Load users</a>
-				<h2>Count: {{count}}</h2>
+				<h2>Count: {{userCount}}</h2>
 			</section>
 			<user-list></user-list>
 		</main>
@@ -15,6 +15,8 @@
 	import navBar from '@/components/nav-bar.vue';
 	import userList from '@/components/user-list.vue';
 
+	import {mapGetters} from 'vuex';
+
 	export default {
 		name: 'App',
 
@@ -24,14 +26,12 @@
 		},
 
 		computed: {
-			count() {
-				return this.$store.getters.userCount;
-			}
+			...mapGetters('users', ['userCount'])
 		},
 
 		methods: {
 			loadUsers() {
-				this.$store.dispatch('fetchUsers').catch(
+				this.$store.dispatch('users/LOAD_USERS').catch(
 					err => console.log('--- ERROR --->', err.message)
 				)
 			}
@@ -57,7 +57,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			
+
 			.load-users {
 				font-size: 16px;
 				color: $vue-green-plus-25;

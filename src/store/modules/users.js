@@ -1,4 +1,6 @@
 ﻿export default {
+    namespaced: true,
+
 	state: {
 		users: []
 	},
@@ -8,7 +10,7 @@
 			return state.users.length;
 		}
 	},
-	
+
 	mutations: {
 
 		ADD_USER(state, name) {
@@ -21,7 +23,8 @@
 		},
 
 		REMOVE_USER(state, id) {
-			this.state.users = this.state.users.filter(item => item.id !== id);
+			console.log(this.state)
+			state.users = state.users.filter(item => item.id !== id);
 		}
 	},
 

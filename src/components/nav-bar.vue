@@ -6,21 +6,30 @@
 				<button class="btn-add" @click.prevent="addUser">Add</button>
 			</div>
 			<div class="account">
-				<span class="name">{{account.name}}</span>
-				<img class="avatar" :src="account.avatar" width="40" height="40" />
+				<span class="name">{{accountName}}</span>
+				<img class="avatar" :src="accountAvatar" width="40" height="40" />
 			</div>
 		</div>
 	</nav>
 </template>
 
 <script>
+	import {mapState} from 'vuex'
+
 	export default {
 		name: 'NavBar',
 
 		computed: {
-			account() {
-				return this.$store.getters.account;
+			/*
+			accountName() {
+				return this.$store.state.account.accountName;
 			},
+
+			accountAvatar() {
+				return this.$store.state.account.accountAvatar;
+			},
+			*/
+			...mapState('account', ['accountName', 'accountAvatar'])
 		},
 
 		methods: {
@@ -29,7 +38,7 @@
 
 				if (el.value.trim() !== '') {
 
-					this.$store.commit('addUser', el.value)
+					this.$store.commit('users/ADD_USER', el.value)
 
 					el.value = '';
 					el.focus();
