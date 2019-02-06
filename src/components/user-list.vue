@@ -1,32 +1,41 @@
 ﻿<template>
-	<ul class="user-list">
-		<li class="user-list--item" v-for="user in users" :index="user.id">
-			<div class="avatar">
-				<img :src="avatarUrl" width="48" />
-			</div>
-			<span class="username">{{user.name}}</span>
-			<a href="#" class="btn-remove" @click.prevent="removeUser(user.id)">+</a>
-		</li>
-	</ul>
+	<div>
+		<section>
+			<a class="load-users" href="#" @click.prevent="loadUsers">Load users</a>
+			<h2>Count: {{userCount}}</h2>	
+		</section>
+
+		<ul class="user-list">
+			<li class="user-list--item" v-for="user in users" :index="user.id">
+				<div class="avatar">
+					<img src="@/assets/user-avatar.png" width="48" />
+				</div>
+				<span class="username">{{user.name}}</span>
+				<a href="#" class="btn-remove" @click.prevent="removeUser(user.id)">+</a>
+			</li>
+		</ul>
+	</div>
 </template>
 
 <script>
-	import {mapState} from 'vuex';
+	import userAvatar from '@/assets/user-avatar.png';
+	import {mapState, mapGetters} from 'vuex';
 
 	export default {
 		name: 'UserList',
 
-		data() {
-			return {
-				avatarUrl: 'https://bit.ly/2TpLp1e'
-			}
-		},
-
 		computed: {
-			...mapState('users', ['users'])
+			...mapState('users', ['users']),
+			...mapGetters('users', ['userCount'])
 		},
 
 		methods: {
+			loadUsers() {
+				this.$store.dispatch('users/LOAD_USERS').catch(
+					err => console.log('--- ERROR --->', err.message)
+				)
+			},
+
 			removeUser(id) {
 				this.$store.commit('users/REMOVE_USER', id);
 			}
@@ -35,6 +44,22 @@
 </script>
 
 <style lang="scss" scoped>
+
+	section {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.load-users {
+			font-size: 16px;
+			color: $vue-green-plus-25;
+		}
+
+		h2 {
+			margin-left: auto;
+		}
+	}
+
 	.user-list {
 		margin-bottom: 16px;
 		background: $vue-dark-minus-5;
