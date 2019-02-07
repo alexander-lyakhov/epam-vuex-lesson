@@ -2,11 +2,11 @@
 	<div>
 		<section>
 			<a class="load-users" href="#" @click.prevent="loadUsers">Load users</a>
-			<h2>Count: {{userCount}}</h2>	
+			<h2>Count: {{userCount}}</h2>
 		</section>
 
 		<ul class="user-list">
-			<li class="user-list--item" v-for="user in users" :index="user.id">
+			<li class="user-list--item" v-for="user in users" :key="user.id">
 				<div class="avatar">
 					<img src="@/assets/user-avatar.png" width="48" />
 				</div>
