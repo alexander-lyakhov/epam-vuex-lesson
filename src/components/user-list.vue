@@ -2,6 +2,8 @@
 	<div>
 		<section>
 			<a class="load-users" href="#" @click.prevent="loadUsers">Load users</a>
+			<span>&nbsp;|&nbsp;</span>
+			<a class="clear-users" href="#" @click.prevent="clearUsers">Clear users</a>
 			<h2>Count: {{userCount}}</h2>
 		</section>
 
@@ -36,6 +38,10 @@
 				)
 			},
 
+			clearUsers() {
+				this.$store.commit('users/CLEAR_USERS');
+			},
+
 			removeUser(id) {
 				this.$store.commit('users/REMOVE_USER', id);
 			}
@@ -50,7 +56,7 @@
 		justify-content: space-between;
 		align-items: center;
 
-		.load-users {
+		.load-users, .clear-users {
 			font-size: 16px;
 			color: $vue-green-plus-25;
 		}
