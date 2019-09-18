@@ -38,9 +38,9 @@ module.exports = {
 		}
 	},
 
-	outputDir: path.resolve(projectPath, "dist"),
+	outputDir: path.resolve(projectPath, "dist"),	
 
-	//publicPath: process.env.NODE_ENV === "production" ? `/${projectName}/` : "/",
+	publicPath: process.env.NODE_ENV === "production" ? `/${projectName}/` : "/",
 	//baseUrl: process.env.NODE_ENV === "production" ? `/${projectName}/` : "/",
 
 	lintOnSave: false

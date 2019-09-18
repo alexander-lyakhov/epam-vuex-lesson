@@ -15,11 +15,15 @@
 
 		ADD_USER(state, name) {
 			const id = Math.floor(Math.random() * new Date().getTime()).toString(16);
-			state.users = [{id, name}, ...state.users];
+			state.users.unshift({ id, name });
 		},
 
 		POPULATE_USERS(state, data) {
-			state.users = [...data, ...state.users];
+			state.users.unshift(...data);
+		},
+
+		CLEAR_USERS(state) {
+			state.users = [];
 		},
 
 		REMOVE_USER(state, id) {
