@@ -2,7 +2,7 @@
 	<nav>
 		<div class="nav-header">
 			<div class="text-input">
-				<input type="text" ref="userName" @keyup.enter="addUser" />
+				<input type="text" ref="userName" v-model="userName" @keyup.enter="addUser" />
 				<button class="btn-add" @click.prevent="addUser">Add</button>
 			</div>
 			<div class="account">
@@ -18,6 +18,12 @@
 
 	export default {
 		name: 'NavBar',
+
+		data() {
+			return {
+				userName: ''
+			}
+		},
 
 		computed: {
 			/*
@@ -36,11 +42,22 @@
 			addUser(e) {
 				const el = this.$refs.userName;
 
+				/* Case for $refs
+
 				if (el.value.trim() !== '') {
 
 					this.$store.commit('users/ADD_USER', el.value)
 
 					el.value = '';
+					el.focus();
+				}
+				*/
+
+				if (this.userName.trim() !== '') {
+
+					this.$store.commit('users/ADD_USER', this.userName)
+
+					this.userName = '';
 					el.focus();
 				}
 			}
